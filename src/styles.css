@@ -1,5 +1,13 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     font-family: "Audiowide", sans-serif;
+}
+
+body {
+    background-image: url(https://cdn.pixabay.com/photo/2014/07/10/11/15/skateboarder-388977_960_720.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 90px;
 }
