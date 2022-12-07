@@ -1,0 +1,41 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
+include __DIR__ . "/../data/productDAO.php";
+
+class Product {
+
+    // ========================= FIELDS =========================
+
+    private $id;
+    private $name;
+    private $image;
+    private $price;
+    private $description;
+    private $rating;
+    private $stock;
+
+    public function __construct($id){
+
+        // Call to DAO
+        $item = itemDAO::fetchItem($id);
+
+        $this->id = $item['id'];
+        $this->name = $item['name'];
+        $this->image = $item['image'];
+        $this->price = $item['price'];
+        $this->description = $item['description'];
+        $this->rating = $item['rating'];
+        $this->stock = $item['stock'];
+    }
+
+    // ========================= METHODS =========================
+
+    public static function getAllItems() {
+        return ProductDAO::fetchAllItems();
+    }
+
+
+}

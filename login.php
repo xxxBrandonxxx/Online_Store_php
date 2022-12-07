@@ -24,11 +24,11 @@
                                 <h2 class="fw-bold mb-2 text-uppercase">Login to Apex Skateshop</h2>
                                 <p class="text-white-50 mb-5">Please enter your login and password!</p>
                                 <div class="form-outline form-white mb-4">
-                                    <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                                    <label class="form-label" for="typeEmailX">username</label>
+                                    <input type="email" id="typeEmailX" class="form-control form-control-lg"  name="LoginEmail" required>
+                                    <label class="form-label" for="InputEmail">Email</label>
                                 </div>
                                 <div class="form-outline form-white mb-4">
-                                    <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                    <input type="password" id="typePasswordX" class="form-control form-control-lg" name="LoginPassword" required />
                                     <label class="form-label" for="typePasswordX">Password</label>
                                 </div>
                                 <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
