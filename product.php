@@ -1,19 +1,54 @@
+<?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    function getProduct($itemId) {
+        $serverhost = "localhost";
+        $username = "root";
+        $password = "root";
+        $dbname = "shop";
+
+        // Create connection
+        $connect = new mysqli($serverhost, $username, $password, $dbname);
+
+        // Begin prepare statement
+        $sql = "SELECT * FROM products WHERE ID = ?";
+        $stmt = $connect->prepare($sql);
+
+        // Bind passed variable to prepare statement
+        $stmt->bind_param("s", $itemId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $product = $result->fetch_assoc();
+        return $product;
+    }
+
+    $itemId = $_GET['itemId'];
+    $result = getProduct($itemId);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">    
-    <link rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css", integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm", crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" , href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" , integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" , crossorigin="anonymous">
     <link rel="stylesheet" href="src/styles.css">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
-    <title>online store</title>
+    <title>Apex SkateShop</title>
 
-</head>
 
-< <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+<body>
+
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="#!">Start Bootstrap</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -24,7 +59,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="./about.php">About Us</a>
                     </li>
-                     <li class="nav-item">
+                    <!-- TODO: Change this to a dropdown later, with the 3 different categories. 
+                So it will be separate shop pages but just with the selected category only (https://getbootstrap.com/docs/5.2/components/navbar/) -->
+                    <li class="nav-item">
                         <a class="nav-link" href="./shop.php">E-Shop!</a>
                     </li>
                     <li class="nav-item">
@@ -61,8 +98,20 @@
             </div>
         </div>
     </nav>
-
-
-
+    <section>
+        <h1><?php echo $result['name'] ?></h1>
+        <img src="<?php echo $result['image'] ?>">
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
 </body>
+
 </html>

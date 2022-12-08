@@ -89,9 +89,25 @@ class UserDAO {
         
     }
 
+    public function getProduct($itemId) {
+        global $connect;
+
+        // Begin prepare statement
+        $sql = "SELECT * FROM products WHERE ID = $itemId";
+        $stmt = $connect->prepare($sql);
+
+        // Bind passed variable to prepare statement
+        $stmt->bind_param("s", $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $product = $result->fetch_assoc();
+        return $product;
+    }
 
 
 
+
+        
 
 
 
