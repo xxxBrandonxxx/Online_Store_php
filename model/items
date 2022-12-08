@@ -34,7 +34,7 @@ class Product {
     // ========================= METHODS =========================
 
     public static function getAllItems() {
-        return ProductDAO::fetchAllItems();
+        return itemDAO::fetchAllItems();
     }
 
 
