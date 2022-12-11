@@ -3,26 +3,27 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+include('server.php');
 session_start();
 
-include 'config/config.php';
-if (isset($_POST['subbmit'])) {
-    $firstname = $_POST["firstname"];
-    $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+// include 'config/config.php';
+// if (isset($_POST['subbmit'])) {
+//     $firstname = $_POST["firstname"];
+//     $lastname = $_POST["lastname"];
+//     $email = $_POST["email"];
+//     $password = $_POST["password"];
 
-    $sql = "insert into 'users' (firstname, lastname, email, password)
-    values('$firstname','$lastname','$email','$password')";
-    $result = mysqli_query($con, $sql);
-    if ($result) {
-        echo "Data inserted succesfully";
-    } else {
-        echo "Connection failed";
-        die(mysqli_error($con));
+//     $sql = "insert into 'users' (firstname, lastname, email, password)
+//     values('$firstname','$lastname','$email','$password')";
+//     $result = mysqli_query($con, $sql);
+//     if ($result) {
+//         echo "Data inserted succesfully";
+//     } else {
+//         echo "Connection failed";
+//         die(mysqli_error($con));
 
-    }
-}
+//     }
+// }
 
 ?>
 
@@ -54,24 +55,25 @@ if (isset($_POST['subbmit'])) {
                                 <div class="mb-md-5 mt-md-4 pb-5">
                                     <h2 class="fw-bold mb-2 text-uppercase">Register to Apex Skateshop</h2>
                                     <p class="text-white-50 mb-5">Please enter your Details</p>
-                                    <form>
+                                    <form method="post" action="register.php">
+                                    <?php include('errors.php'); ?>
                                         <div class="form-outline form-white mb-4">
-                                            <label for="firstname" class="form-label">User Name*</label>
-                                            <input type="text" name="firstname" class="form-control" id="firstname" required>
-                                        </div>
-                                        <div class="form-outline form-white mb-4">
-                                            <label for="lastname" class="form-label">Last Name*</label>
-                                            <input type="text" name="lastname" class="form-control" id="lastname" required>
+                                            <label for="username" class="form-label">User Name*</label>
+                                            <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" id="username" required>
                                         </div>
                                         <div class="form-outline form-white mb-4">
                                             <label for="email" class="form-label">Email*</label>
-                                            <input type="email" name="email" class="form-control" id="email" required>
+                                            <input type="email" name="email" class="form-control" id="email" value="<?php echo $email; ?>" required>
                                         </div>
                                         <div class="form-outline form-white mb-4">
                                             <label for="password" class="form-label">Password*</label>
-                                            <input type="password" name="password" class="form-control" id="password" required>
+                                            <input type="password" name="password_1" class="form-control" id="password" required>
                                         </div>
-                                        <button class="btn btn-outline-light btn-lg px-5" name="submit" type="submit">Register</button>
+                                        <div class="form-outline form-white mb-4">
+                                            <label for="password" class="form-label">Confirm password*</label>
+                                            <input type="password" name="password_2" class="form-control" id="password" required>
+                                        </div>
+                                        <button class="btn btn-outline-light btn-lg px-5" name="reg_user" type="submit">Register</button>
                                 </div>
                                 </form>
                                 <div>

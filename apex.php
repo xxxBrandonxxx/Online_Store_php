@@ -6,7 +6,17 @@
     error_reporting(E_ALL);
 
     include __DIR__ . "/config/config.php";
-    session_start()
+    session_start(); 
+
+    if (!isset($_SESSION['username'])) {
+        $_SESSION['msg'] = "You must log in first";
+        header('location: login.php');
+    }
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        unset($_SESSION['username']);
+        header("location: login.php");
+    }
 ?>
 
  
@@ -28,11 +38,35 @@
 
 
 <body>
-<?php include __DIR__ . "/bars/header.php"; ?>
+
     <!-- Header-->
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
+            <?php include __DIR__ . "/bars/header.php"; ?>
+
+
+	<h1>Apex</h1>
+<div class="content">
+  	<!-- notification message -->
+  	<?php if (isset($_SESSION['success'])) : ?>
+      <div class="error success" >
+      	<h3>
+          <?php 
+          	echo $_SESSION['success']; 
+          	unset($_SESSION['success']);
+          ?>
+      	</h3>
+      </div>
+  	<?php endif ?>
+
+    <!-- logged in user information -->
+    <?php  if (isset($_SESSION['username'])) : ?>
+    	<h3>Welcome <strong><?php echo $_SESSION['username']; ?></strong></h3>
+    	<h3> <a href="index.php?logout='1'" style="color: red;">logout</a> </h3>
+    <?php endif ?>
+</div>
+                
                 <h1 class="display-4 fw-bolder">Skate in style</h1>
                 <p class="lead fw-normal text-white-50 mb-0">Shop the board of your dreams</p>
             </div>

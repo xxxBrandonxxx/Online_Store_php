@@ -1,12 +1,15 @@
 <?php
 
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include __DIR__ . "/config/config.php";
-session_start()
+include('server.php') ;
+
+
+session_start(); 
+
 ?>
 
 
@@ -38,17 +41,26 @@ session_start()
                                 <div class="mb-md-5 mt-md-4 pb-5">
                                     <h2 class="fw-bold mb-2 text-uppercase">Login to Apex Skateshop</h2>
                                     <p class="text-white-50 mb-5">Please enter your login and password!</p>
+
+
+
+
                                     <form action="apex.php" method="post">
+                                    <?php include('errors.php'); ?>
                                         <div class="form-outline form-white mb-4">
-                                            <input type="email" id="typeEmailX" class="form-control form-control-lg" name="LoginEmail">
-                                            <label class="form-label" for="InputEmail">Email</label>
+                                            <input type="text" id="typeTextX" class="form-control form-control-lg" name="username">
+                                            <label class="form-label" for="InputText">Username</label>
                                         </div>
                                         <div class="form-outline form-white mb-4">
-                                            <input type="password" id="typePasswordX" class="form-control form-control-lg" name="LoginPassword" required />
+                                            <input type="password" id="typePasswordX" class="form-control form-control-lg" name="password_1" required />
                                             <label class="form-label" for="typePasswordX">Password</label>
                                         </div>
-                                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                        <button class="btn btn-outline-light btn-lg px-5"  href="apex.php" type="submit" name="login_user">Login</button>
                                 </div>
+
+
+
+
                                 </form>
                                 <div>
                                     <p class="mb-0">Don't have an account? <a href="register.php" class="text-white-50 fw-bold">Sign Up</a></p>
