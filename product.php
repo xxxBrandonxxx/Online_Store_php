@@ -1,31 +1,34 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
 
-    function getProduct($itemId) {
-        $serverhost = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "shop";
+session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-        // Create connection
-        $connect = new mysqli($serverhost, $username, $password, $dbname);
+function getProduct($itemId)
+{
+    $serverhost = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "shop";
 
-        // Begin prepare statement
-        $sql = "SELECT * FROM products WHERE ID = ?";
-        $stmt = $connect->prepare($sql);
+    // Create connection
+    $connect = new mysqli($serverhost, $username, $password, $dbname);
 
-        // Bind passed variable to prepare statement
-        $stmt->bind_param("s", $itemId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $product = $result->fetch_assoc();
-        return $product;
-    }
+    // Begin prepare statement
+    $sql = "SELECT * FROM products WHERE ID = ?";
+    $stmt = $connect->prepare($sql);
 
-    $itemId = $_GET['itemId'];
-    $result = getProduct($itemId);
+    // Bind passed variable to prepare statement
+    $stmt->bind_param("s", $itemId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+    return $product;
+}
+
+$itemId = $_GET['itemId'];
+$result = getProduct($itemId);
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +41,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" , href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" , integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" , crossorigin="anonymous">
-    <link rel="stylesheet" href="src/styles.css">
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
@@ -47,61 +49,43 @@
 
 <body>
 
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">Start Bootstrap</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <a class="nav-link" href="./index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./about.php">About Us</a>
-                    </li>
-                    <!-- TODO: Change this to a dropdown later, with the 3 different categories. 
-                So it will be separate shop pages but just with the selected category only (https://getbootstrap.com/docs/5.2/components/navbar/) -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="./shop.php">E-Shop!</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./cart.php">Cart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./lookbook.php">LookBook</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./contact.php">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./logout.php">Logout</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </button>
-                </form>
+    <?php include __DIR__ . "/bars/header.php"; ?>
+
+    <section style="background-image: url(src/images/skateshop.jpg)">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+                    <div class="card text-black">
+                        <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+                        <img src="<?php echo $result['image'] ?>" alt="skateboard" />
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h5 class="card-title">Apex skateshop</h5>
+                                <p class="text-muted mb-4"><?php echo $result['name'] ?></p>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <span>R <?php echo $result['price'] ?></span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span><?php echo $result['description'] ?></span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                                <span>Rating </span><span><?php echo $result['rating'] ?>/10</span>
+                            </div>
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                add to Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
-    <section>
-        <h1><?php echo $result['name'] ?></h1>
-        <img src="<?php echo $result['image'] ?>">
     </section>
+
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
@@ -112,6 +96,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <?php include __DIR__ . "/bars/footer.php"; ?>
 </body>
 
 </html>

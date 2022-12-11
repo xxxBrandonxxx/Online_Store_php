@@ -1,3 +1,31 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+include 'config/config.php';
+if (isset($_POST['subbmit'])) {
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    $sql = "insert into 'users' (firstname, lastname, email, password)
+    values('$firstname','$lastname','$email','$password')";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        echo "Data inserted succesfully";
+    } else {
+        echo "Connection failed";
+        die(mysqli_error($con));
+
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,20 +54,26 @@
                                 <div class="mb-md-5 mt-md-4 pb-5">
                                     <h2 class="fw-bold mb-2 text-uppercase">Register to Apex Skateshop</h2>
                                     <p class="text-white-50 mb-5">Please enter your Details</p>
-                                    <div class="form-outline form-white mb-4">
-                                        <label for="RegInputName" class="form-label">User Name*</label>
-                                        <input type="text" name="RegInputName" class="form-control" id="RegInputName" required>
-                                    </div>
-                                    <div class="form-outline form-white mb-4">
-                                        <label for="RegInputEmail" class="form-label">Email*</label>
-                                        <input type="email" name="RegInputEmail" class="form-control" id="RegInputEmail" required>
-                                    </div>
-                                    <div class="form-outline form-white mb-4">
-                                        <label for="RegInputPassword" class="form-label">Password*</label>
-                                        <input type="password" name="RegInputPassword" class="form-control" id="RegInputPassword" required>
-                                    </div>
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+                                    <form>
+                                        <div class="form-outline form-white mb-4">
+                                            <label for="firstname" class="form-label">User Name*</label>
+                                            <input type="text" name="firstname" class="form-control" id="firstname" required>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label for="lastname" class="form-label">Last Name*</label>
+                                            <input type="text" name="lastname" class="form-control" id="lastname" required>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label for="email" class="form-label">Email*</label>
+                                            <input type="email" name="email" class="form-control" id="email" required>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label for="password" class="form-label">Password*</label>
+                                            <input type="password" name="password" class="form-control" id="password" required>
+                                        </div>
+                                        <button class="btn btn-outline-light btn-lg px-5" name="submit" type="submit">Register</button>
                                 </div>
+                                </form>
                                 <div>
                                     <p class="mb-0">Already have an account? <a href="login.php" class="text-white-50 fw-bold">Sign in</a></p>
                                 </div>

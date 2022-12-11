@@ -1,3 +1,15 @@
+<?php
+
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    include __DIR__ . "/config/config.php";
+    session_start()
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +25,10 @@
      <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <title>Apex SkateShop</title>
-    <body>    <?php include __DIR__ . "/bars/header.php"; ?>
+   
 
 <body>
+<?php include __DIR__ . "/bars/header.php"; ?>
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -38,7 +51,7 @@
                                 </div>
                                 </form>
                             <div>
-                                <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
+                                <p class="mb-0">Don't have an account? <a href="register.php" class="text-white-50 fw-bold">Sign Up</a></p>
                             </div>
                         </div>
                     </div>

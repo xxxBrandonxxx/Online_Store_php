@@ -1,22 +1,23 @@
 <?php
-$serverhost = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "shop";
 
-// Create connection
-$connect = new mysqli($serverhost, $username, $password, $dbname);
+    function getAllProducts() {
+        $serverhost = "localhost";
+        $username = "root";
+        $password = "root";
+        $dbname = "shop";
 
-// Check connection
-if ($connect -> connect_error) {
-  die("Connection failed: " . mysqli_connect_error());
-  
-} else {
+        // Create connection
+        $connect = new mysqli($serverhost, $username, $password, $dbname);
 
-  return $connect;
-  
-}
+        // Begin prepare statement
+        $sql = "SELECT * FROM products";
+        $result = mysqli_query($connect, $sql);
+
+        return mysqli_fetch_all ($result, MYSQLI_ASSOC);
+    }
+
+    $results = getAllProducts();
 
 
 
-
+?>

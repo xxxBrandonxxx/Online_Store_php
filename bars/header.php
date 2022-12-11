@@ -1,5 +1,4 @@
 <?php
-include __DIR__ . "/head.php";
 // include __DIR__ . "/../../model/User.php";
 
 // Check if the user is already logged in, if yes then redirect them to homepage
@@ -25,13 +24,13 @@ include __DIR__ . "/head.php";
                         <a class="nav-link" href="./about.php">About Us</a>
                     </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="./shop.php">E-Shop!</a>
+                        <a class="nav-link" href="./apex.php">Apex Store</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./cart.php">Cart</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./lookbook.php">LookBook</a>
+                        <a class="nav-link" href="./apex.php">LookBook</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.php">Contact</a>

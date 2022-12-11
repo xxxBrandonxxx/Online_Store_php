@@ -97,7 +97,7 @@ class UserDAO {
         $stmt = $connect->prepare($sql);
 
         // Bind passed variable to prepare statement
-        $stmt->bind_param("s", $password);
+        $stmt->bind_param("s", $itemId);
         $stmt->execute();
         $result = $stmt->get_result();
         $product = $result->fetch_assoc();
