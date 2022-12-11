@@ -29,4 +29,6 @@ Online store where you can purchase skateboard accessories this Program was buil
 
 This project is licensed under the [Brandon Jansen Van Vuuren] License - see the LICENSE.md file for details
 
+Video of the app is in VideoOfProject Folder
+
 ## Acknowledgments
