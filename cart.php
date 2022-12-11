@@ -1,125 +1,129 @@
 <?php
-
 session_start();
-$connect = new mysqli("localhost", "root", "", "cart");
-if (isset($_POST["add_to_cart"])) {
-    if (isset($_SESSION["shopping_cart"])) {
-        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-        if ( ! in_array($_GET["id"], $item_array_id)) {
-            $count = count($_SESSION["shopping_cart"]);
-            $item_array = array(
-                'item_id'       => $_GET["id"],
-                'item_name'     => $_POST["hidden_name"],
-                'item_price'    => $_POST["hidden_price"],
-                'item_quantity' => $_POST["quantity"],
-            );
-            $_SESSION["shopping_cart"][$count] = $item_array;
-        } else {
-            echo '<script>alert("Item Already Added")</script>';
-        }
-    } else {
-        $item_array = array(
-            'item_id'       => $_GET["id"],
-            'item_name'     => $_POST["hidden_name"],
-            'item_price'    => $_POST["hidden_price"],
-            'item_quantity' => $_POST["quantity"],
-        );
-        $_SESSION["shopping_cart"][0] = $item_array;
-    }
+require_once("dbcontroller.php");
+$db_handle = new DBController();
+if(!empty($_GET["action"])) {
+switch($_GET["action"]) {
+	case "add":
+		if(!empty($_POST["quantity"])) {
+			$productByCode = $db_handle->runQuery("SELECT * FROM tblproduct WHERE code='" . $_GET["code"] . "'");
+			$itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
+			
+			if(!empty($_SESSION["cart_item"])) {
+				if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
+					foreach($_SESSION["cart_item"] as $k => $v) {
+							if($productByCode[0]["code"] == $k) {
+								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+									$_SESSION["cart_item"][$k]["quantity"] = 0;
+								}
+								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+							}
+					}
+				} else {
+					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+				}
+			} else {
+				$_SESSION["cart_item"] = $itemArray;
+			}
+		}
+	break;
+	case "remove":
+		if(!empty($_SESSION["cart_item"])) {
+			foreach($_SESSION["cart_item"] as $k => $v) {
+					if($_GET["code"] == $k)
+						unset($_SESSION["cart_item"][$k]);				
+					if(empty($_SESSION["cart_item"]))
+						unset($_SESSION["cart_item"]);
+			}
+		}
+	break;
+	case "empty":
+		unset($_SESSION["cart_item"]);
+	break;	
 }
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "delete") {
-        foreach ($_SESSION["shopping_cart"] as $keys => $values) {
-            if ($values["item_id"] == $_GET["id"]) {
-                unset($_SESSION["shopping_cart"][$keys]);
-                echo '<script>alert("Item Removed")</script>';
-                echo '<script>window.location="index.php"</script>';
-            }
-        }
-    }
 }
 ?>
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <link rel="stylesheet" type="text/css" href="style.css"/>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shopping Cart In PHP and MySQL</title>
-  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-</head>
-<body>
-<br/>
-<div class="container">
-  <br/>
-  <br/>
-  <br/>
-  <h3>Shopping Cart With PHP And MySQL</h3><br/>
-  <br/><br/>
-    <?php
-    $query = "select * from tbl_product order by id";
-    $result = $connect->query($query);
-    if ($result->num_rows > 0) {
-        while ($product = $result->fetch_object()) { ?>
-          <div class="col-md-4">
-            <form method="post" action="index.php?action=add&id=<?= $product->id; ?>">
-              <div class="div-inner-form">
-                <img alt="Imagem" src="./images/<?= $product->image; ?>" class="img-responsive center-block"/><br/>
-                <h4 class="text-info"><?= $product->name; ?></h4>
-                <h4 class="text-danger">$ <?= $product->price; ?></h4>
-                <input aria-label="Quantidade" type="number" name="quantity" value="1" class="form-control"/>
-                <input type="hidden" name="hidden_name" value="<?= $product->name; ?>"/>
-                <input type="hidden" name="hidden_price" value="<?= $product->price; ?>"/>
-                <input type="submit" name="add_to_cart" class="btn btn-success add_to_cart" value="Add to Cart"/>
-              </div>
-            </form>
-          </div>
-            <?php
-        }
-    } ?>
-  <div class="clear"></div>
-  <br/>
-  <h3>Order Details</h3>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <tr>
-        <th class="th40">Item Name</th>
-        <th class="th10">Quantity</th>
-        <th class="th20">Price</th>
-        <th class="th15">Total</th>
-        <th class="th5">Action</th>
-      </tr>
-        <?php
-        if ( ! empty($_SESSION["shopping_cart"])) {
-            $total = 0;
-            foreach ($_SESSION["shopping_cart"] as $keys => $values) {
-                ?>
-              <tr>
-                <td><?= $values["item_name"]; ?></td>
-                <td><?= $values["item_quantity"]; ?></td>
-                <td>$ <?= $values["item_price"]; ?></td>
-                <td>$ <?= number_format($values["item_quantity"] * $values["item_price"], 2); ?></td>
-                <td>
-                  <a href="index.php?action=delete&id=<?= $values["item_id"]; ?>"><span class="text-danger">Remove</span></a>
-                </td>
-              </tr>
-                <?php
-                $total += $values["item_quantity"] * $values["item_price"];
-            }
-            ?>
-          <tr>
-            <td colspan="3">Total</td>
-            <td>$ <?= number_format($total, 2); ?></td>
-            <td></td>
-          </tr>
-            <?php
-        }
-        ?>
-    </table>
-  </div>
+<HTML>
+<HEAD>
+<TITLE>Simple PHP Shopping Cart</TITLE>
+<link href="style.css" type="text/css" rel="stylesheet" />
+</HEAD>
+<BODY>
+<div id="shopping-cart">
+<div class="txt-heading">Shopping Cart</div>
+
+<a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
+<?php
+if(isset($_SESSION["cart_item"])){
+    $total_quantity = 0;
+    $total_price = 0;
+?>	
+<table class="tbl-cart" cellpadding="10" cellspacing="1">
+<tbody>
+<tr>
+<th style="text-align:left;">Name</th>
+<th style="text-align:left;">Code</th>
+<th style="text-align:right;" width="5%">Quantity</th>
+<th style="text-align:right;" width="10%">Unit Price</th>
+<th style="text-align:right;" width="10%">Price</th>
+<th style="text-align:center;" width="5%">Remove</th>
+</tr>	
+<?php		
+    foreach ($_SESSION["cart_item"] as $item){
+        $item_price = $item["quantity"]*$item["price"];
+		?>
+				<tr>
+				<td><img src="<?php echo $item["image"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
+				<td><?php echo $item["code"]; ?></td>
+				<td style="text-align:right;"><?php echo $item["quantity"]; ?></td>
+				<td  style="text-align:right;"><?php echo "$ ".$item["price"]; ?></td>
+				<td  style="text-align:right;"><?php echo "$ ". number_format($item_price,2); ?></td>
+				<td style="text-align:center;"><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item" /></a></td>
+				</tr>
+				<?php
+				$total_quantity += $item["quantity"];
+				$total_price += ($item["price"]*$item["quantity"]);
+		}
+		?>
+
+<tr>
+<td colspan="2" align="right">Total:</td>
+<td align="right"><?php echo $total_quantity; ?></td>
+<td align="right" colspan="2"><strong><?php echo "$ ".number_format($total_price, 2); ?></strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>		
+  <?php
+} else {
+?>
+<div class="no-records">Your Cart is Empty</div>
+<?php 
+}
+?>
 </div>
-<br/>
-</body>
-</html>
+
+<div id="product-grid">
+	<div class="txt-heading">Products</div>
+	<?php
+	$product_array = $db_handle->runQuery("SELECT * FROM tblproduct ORDER BY id ASC");
+	if (!empty($product_array)) { 
+		foreach($product_array as $key=>$value){
+	?>
+		<div class="product-item">
+			<form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>">
+			<div class="product-image"><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
+			<div class="product-tile-footer">
+			<div class="product-title"><?php echo $product_array[$key]["name"]; ?></div>
+			<div class="product-price"><?php echo "$".$product_array[$key]["price"]; ?></div>
+			<div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" /></div>
+			</div>
+			</form>
+		</div>
+	<?php
+		}
+	}
+	?>
+</div>
+</BODY>
+</HTML>

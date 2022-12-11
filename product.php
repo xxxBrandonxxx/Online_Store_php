@@ -74,7 +74,7 @@ $result = getProduct($itemId);
                             <div class="d-flex justify-content-between total font-weight-bold mt-4">
                                 <span>Rating </span><span><?php echo $result['rating'] ?>/10</span>
                             </div>
-                            <button class="btn btn-outline-dark" type="submit">
+                            <button class="btn btn-outline-dark" type="button" href="#">product.php?itemId=<?php echo $item['id'] ?>">
                                 <i class="bi-cart-fill me-1"></i>
                                 add to Cart
                                 <span class="badge bg-dark text-white ms-1 rounded-pill"></span>

@@ -32,7 +32,7 @@ session_start();
 
 <body> <?php include __DIR__ . "/bars/header.php"; ?>
     <section>
-        <div class="vh-100 gradient-custom " id="wallpaper">
+    <div class="vh-100 gradient-custom " id="wallpaper">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">

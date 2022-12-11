@@ -6,24 +6,7 @@ error_reporting(E_ALL);
 include('server.php');
 session_start();
 
-// include 'config/config.php';
-// if (isset($_POST['subbmit'])) {
-//     $firstname = $_POST["firstname"];
-//     $lastname = $_POST["lastname"];
-//     $email = $_POST["email"];
-//     $password = $_POST["password"];
 
-//     $sql = "insert into 'users' (firstname, lastname, email, password)
-//     values('$firstname','$lastname','$email','$password')";
-//     $result = mysqli_query($con, $sql);
-//     if ($result) {
-//         echo "Data inserted succesfully";
-//     } else {
-//         echo "Connection failed";
-//         die(mysqli_error($con));
-
-//     }
-// }
 
 ?>
 
@@ -37,16 +20,16 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" , href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" , integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" , crossorigin="anonymous">
-    <link rel="stylesheet" href="src/styles.css">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <link rel="stylesheet" href="src/styles.css">
     <title>Apex SkateShop</title>
-
-
-<body>
+</head>
 
     <body> <?php include __DIR__ . "/bars/header.php"; ?>
 
-        <section class="vh-100 gradient-custom">
+        <<div class="vh-150 gradient-custom " id="wallpaper">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -85,6 +68,7 @@ session_start();
                 </div>
             </div>
         </section>
+        <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>   <br>
         <?php include __DIR__ . "/bars/footer.php"; ?>
     </body>
 
