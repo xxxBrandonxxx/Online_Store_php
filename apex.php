@@ -40,11 +40,9 @@ if (isset($_GET['logout'])) {
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <?php include __DIR__ . "/bars/header.php"; ?>
-
-
                 <h1>Apex</h1>
                 <div class="content">
-                    
+
                     <!-- notification message -->
                     <?php if (isset($_SESSION['success'])) : ?>
                         <div class="error success">
@@ -59,7 +57,7 @@ if (isset($_GET['logout'])) {
 
                     <!-- logged in user information -->
                     <?php if (isset($_SESSION['username'])) : ?>
-                        <h3>Welcome <strong><?php echo $_SESSION['username']; ?>   Your now part of the family</strong></h3>
+                        <h3>Welcome <strong><?php echo $_SESSION['username']; ?> Your now part of the family</strong></h3>
                     <?php endif ?>
                 </div>
 

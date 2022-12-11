@@ -3,12 +3,14 @@
 include __DIR__ . "/config/config.php";
 include __DIR__ . "/config.php";
 
-class orderDAO {
+class orderDAO
+{
 
     // ========================= DB CRUD METHODS =========================
 
 
-    public static function createOrder() {
+    public static function createOrder()
+    {
         global $connect;
 
         // Grab SESSION data
@@ -33,10 +35,8 @@ class orderDAO {
         foreach ($_SESSION['Cart'] as $product_id) {
             $stmt2->bind_param("ii", $order_id, $product_id);
             $stmt2->execute();
-
         }
-        
+
         return true;
     }
-
 }

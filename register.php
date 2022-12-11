@@ -54,9 +54,9 @@ session_start();
                                         <input type="password" name="password_2" class="form-control" id="password" required>
                                     </div>
                                     <button class="btn btn-outline-light btn-lg px-5" name="reg_user" type="submit">Register</button>
-                            </div>
-                            </form>
-                            <div>
+                                    </div>
+                                     </form>
+                                 <div>
                                 <p class="mb-0">Already have an account? <br> <a href="login.php" class="text-white-50 fw-bold">Sign in</a></p>
                             </div>
                         </div>

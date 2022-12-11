@@ -1,14 +1,8 @@
 <?php
-
-
 include __DIR__ . "/config/config.php";
 include('server.php');
-
-
 session_start();
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,9 +43,9 @@ session_start();
                                             <label class="form-label" for="typePasswordX">Password</label>
                                         </div>
                                         <button class="btn btn-outline-light btn-lg px-5" href="apex.php" type="submit" name="login_user">Login</button>
-                                </div>
-                                </form>
-                                <div>
+                                        </div>
+                                    </form>
+                                  <div>
                                     <p class="mb-0">Don't have an account?<br> <a href="register.php" class="text-white-50 fw-bold">Sign Up</a></p>
                                 </div>
                             </div>
@@ -61,6 +55,7 @@ session_start();
             </div>
         </div>
     </section>
+    <br> <br> <br> <br> <br> 
     <?php include __DIR__ . "/bars/footer.php"; ?>
 </body>
 

@@ -5,7 +5,8 @@ ini_set('display_errors', 'On');
 
 include __DIR__ . "/../data/userDAO.php";
 
-class User {
+class User
+{
 
     // ========================= FIELDS =========================
 
@@ -14,50 +15,51 @@ class User {
     private $lastname;
     private $email;
     private $password;
-    
 
-    public function __construct($id, $firstname, $lastname, $email, $password,){
+
+    public function __construct($id, $firstname, $lastname, $email, $password,)
+    {
 
         $this->id = $id;
         $this->fname = $firstname;
         $this->lname = $lastname;
         $this->email = $email;
         $this->password = $password;
-
     }
 
     // ========================= METHODS =========================
 
-    public static function userRegister() {
+    public static function userRegister()
+    {
         $result = UserDAO::createUser();
-        
+
         if ($result == true) {
-            
-        echo "New user created successfully";
 
-        header("Location: ../shop.php");
-        exit();
+            echo "New user created successfully";
 
+            header("Location: ../shop.php");
+            exit();
         }
     }
 
-    public static function userLogin() {
+    public static function userLogin()
+    {
         $userLogin = UserDAO::fetchLogin();
-        
+
         if ($userLogin == true) {
-            
-        echo "Matched password, logging in...";
 
-        header("Location: ../shop.php");
-        exit();
+            echo "Matched password, logging in...";
 
+            header("Location: ../shop.php");
+            exit();
         }
     }
 
-    public static function userLogout() {
-        if(session_destroy()) {
+    public static function userLogout()
+    {
+        if (session_destroy()) {
             header("Location: ./login.php");
-         }
+        }
     }
 
 
@@ -69,7 +71,7 @@ class User {
 
     // ==================== GETTERS & SETTERS ====================
 
-    
+
 
 
 
@@ -77,7 +79,7 @@ class User {
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -87,7 +89,7 @@ class User {
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -97,7 +99,7 @@ class User {
 
     /**
      * Get the value of firstname
-     */ 
+     */
     public function getFirstname()
     {
         return $this->firstname;
@@ -107,7 +109,7 @@ class User {
      * Set the value of firstname
      *
      * @return  self
-     */ 
+     */
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
@@ -117,7 +119,7 @@ class User {
 
     /**
      * Get the value of lastname
-     */ 
+     */
     public function getLastname()
     {
         return $this->lastname;
@@ -127,7 +129,7 @@ class User {
      * Set the value of lastname
      *
      * @return  self
-     */ 
+     */
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
@@ -137,7 +139,7 @@ class User {
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -145,7 +147,7 @@ class User {
 
     /**
      * Get the value of password
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -155,7 +157,7 @@ class User {
      * Set the value of password
      *
      * @return  self
-     */ 
+     */
     public function setPassword($password)
     {
         $this->password = $password;

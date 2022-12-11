@@ -48,21 +48,22 @@ session_start();
                                             <input type="password" id="typePasswordX" class="form-control form-control-lg" name="password_1" required />
                                             <label class="form-label" for="typePasswordX">Password</label>
                                         </div>
-                                        <button class="btn btn-outline-light btn-lg px-5" href="apex.php" type="submit" name="login_user">Login</button>
-                                </div>
-                                </form>
-                                <div>
-                                    <p class="mb-0">Don't have an account? <br><a href="register.php" class="text-white-50 fw-bold">Sign Up</a></p>
+                                        <div>
+                                            <button class="btn btn-outline-light btn-lg px-5" href="apex.php" type="submit" name="login_user">Login</button>
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <p class="mb-0">Don't have an account? <br><a href="register.php" class="text-white-50 fw-bold">Sign Up</a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
-    <br> <br> <br> <br> <br> 
-   
+    <br> <br> <br> <br> <br>
+
     <?php include __DIR__ . "/bars/footer.php"; ?>
 </body>
 

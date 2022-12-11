@@ -5,7 +5,8 @@ ini_set('display_errors', 'On');
 
 include __DIR__ . "/../data/productDAO.php";
 
-class Product {
+class Product
+{
 
     // ========================= FIELDS =========================
 
@@ -17,7 +18,8 @@ class Product {
     private $rating;
     private $stock;
 
-    public function __construct($id){
+    public function __construct($id)
+    {
 
         // Call to DAO
         $item = itemDAO::fetchItem($id);
@@ -33,7 +35,8 @@ class Product {
 
     // ========================= METHODS =========================
 
-    public static function getAllItems() {
+    public static function getAllItems()
+    {
         return itemDAO::fetchAllItems();
     }
 
@@ -41,7 +44,7 @@ class Product {
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -51,7 +54,7 @@ class Product {
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -61,7 +64,7 @@ class Product {
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -71,7 +74,7 @@ class Product {
      * Set the value of name
      *
      * @return  self
-     */ 
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -81,7 +84,7 @@ class Product {
 
     /**
      * Get the value of image
-     */ 
+     */
     public function getImage()
     {
         return $this->image;
@@ -91,7 +94,7 @@ class Product {
      * Set the value of image
      *
      * @return  self
-     */ 
+     */
     public function setImage($image)
     {
         $this->image = $image;
@@ -101,7 +104,7 @@ class Product {
 
     /**
      * Get the value of price
-     */ 
+     */
     public function getPrice()
     {
         return $this->price;
@@ -111,7 +114,7 @@ class Product {
      * Set the value of price
      *
      * @return  self
-     */ 
+     */
     public function setPrice($price)
     {
         $this->price = $price;
@@ -121,7 +124,7 @@ class Product {
 
     /**
      * Get the value of description
-     */ 
+     */
     public function getDescription()
     {
         return $this->description;
@@ -131,7 +134,7 @@ class Product {
      * Set the value of description
      *
      * @return  self
-     */ 
+     */
     public function setDescription($description)
     {
         $this->description = $description;
@@ -141,7 +144,7 @@ class Product {
 
     /**
      * Get the value of rating
-     */ 
+     */
     public function getRating()
     {
         return $this->rating;
@@ -151,7 +154,7 @@ class Product {
      * Set the value of rating
      *
      * @return  self
-     */ 
+     */
     public function setRating($rating)
     {
         $this->rating = $rating;
@@ -161,7 +164,7 @@ class Product {
 
     /**
      * Get the value of stock
-     */ 
+     */
     public function getStock()
     {
         return $this->stock;
@@ -171,7 +174,7 @@ class Product {
      * Set the value of stock
      *
      * @return  self
-     */ 
+     */
     public function setStock($stock)
     {
         $this->stock = $stock;

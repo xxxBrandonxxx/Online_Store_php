@@ -49,9 +49,7 @@ $result = getProduct($itemId);
 
 
 <body id="apex">
-
-    <?php include __DIR__ . "/bars/header.php"; ?>
-
+ <?php include __DIR__ . "/bars/header.php"; ?>
     <section style="background-image: url(src/images/skateshop.jpg)">
         <div class="container py-5">
             <div class="row justify-content-center">

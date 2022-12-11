@@ -11,10 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <title>Apex SkateShop</title>
 </head>
-<?php include __DIR__ . "/bars/header.php";
-
-?>
-
+<?php include __DIR__ . "/bars/header.php";?>
 
 <body>
     <main>

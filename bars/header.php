@@ -1,4 +1,3 @@
-
 <header>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
@@ -10,7 +9,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="./about.php">About Us</a>
                     </li>
-                <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="./apex.php">Apex Store</a>
                     </li>
                     <li class="nav-item">

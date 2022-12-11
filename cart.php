@@ -14,13 +14,10 @@ function getAllProducts() {
     // Begin prepare statement
     $sql = "SELECT * FROM products";
     $result = mysqli_query($connect, $sql);
-
     return mysqli_fetch_all ($result, MYSQLI_ASSOC);
 }
-
 $results = getAllProducts();
 ?>
-
 
 
 <head>
