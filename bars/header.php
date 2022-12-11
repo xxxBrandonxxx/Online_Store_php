@@ -1,25 +1,12 @@
-<?php
-// include __DIR__ . "/../../model/User.php";
-
-// Check if the user is already logged in, if yes then redirect them to homepage
-// if(!isset($_SESSION["LoggedInUser"])){
-
-//     header("Location: ./index.php");
-//     exit;
-// }
-
-?>
 
 <header>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">Start Bootstrap</a>
+            <a class="navbar-brand" href="./about.php">Apex SkateShop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <a class="nav-link" href="./index.php">Home</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./about.php">About Us</a>
                     </li>
@@ -30,7 +17,7 @@
                         <a class="nav-link" href="./cart.php">Cart</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./apex.php">LookBook</a>
+                        <a class="nav-link" href="./lookbook.php">LookBook</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.php">Contact</a>
@@ -38,19 +25,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="./index.php">Logout</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                        </ul>
-                    </li>
                 </ul>
-                <form class="d-flex">
+                <form class="d-flex" action="./cart.php">
                     <button class="btn btn-outline-dark" type="submit">
                         <i class="bi-cart-fill me-1"></i>
                         Cart

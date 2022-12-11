@@ -1,10 +1,4 @@
 <?php
-
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include __DIR__ . "/config/config.php";
 session_start()
 ?>
@@ -43,8 +37,8 @@ session_start()
                             <u>Bootstrapious</u></a>
                     </p>
                 </div>
-                <div class="col-lg-6 d-none d-lg-block"><img src="src/images/desktop-img.jpg" alt="" class="img-fluid">
-                <h2 class="align-items-right">This is me going down a set of 8 for real!</h2>
+                <div class="col-lg-6 d-none d-lg-block"><img src="src/images/desktop-img.jpg" alt="me on skateboard" class="img-fluid">
+                    <h1 class="lead text-muted">This is me going down a set of 8 back in 2012 Man This was the life! </h1>
                 </div>
             </div>
         </div>

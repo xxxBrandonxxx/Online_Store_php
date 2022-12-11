@@ -1,129 +1,123 @@
+
+
 <?php
-session_start();
-require_once("dbcontroller.php");
-$db_handle = new DBController();
-if(!empty($_GET["action"])) {
-switch($_GET["action"]) {
-	case "add":
-		if(!empty($_POST["quantity"])) {
-			$productByCode = $db_handle->runQuery("SELECT * FROM tblproduct WHERE code='" . $_GET["code"] . "'");
-			$itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
-			
-			if(!empty($_SESSION["cart_item"])) {
-				if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
-					foreach($_SESSION["cart_item"] as $k => $v) {
-							if($productByCode[0]["code"] == $k) {
-								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-									$_SESSION["cart_item"][$k]["quantity"] = 0;
-								}
-								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-							}
-					}
-				} else {
-					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-				}
-			} else {
-				$_SESSION["cart_item"] = $itemArray;
-			}
-		}
-	break;
-	case "remove":
-		if(!empty($_SESSION["cart_item"])) {
-			foreach($_SESSION["cart_item"] as $k => $v) {
-					if($_GET["code"] == $k)
-						unset($_SESSION["cart_item"][$k]);				
-					if(empty($_SESSION["cart_item"]))
-						unset($_SESSION["cart_item"]);
-			}
-		}
-	break;
-	case "empty":
-		unset($_SESSION["cart_item"]);
-	break;	
-}
-}
-?>
-<HTML>
-<HEAD>
-<TITLE>Simple PHP Shopping Cart</TITLE>
-<link href="style.css" type="text/css" rel="stylesheet" />
-</HEAD>
-<BODY>
-<div id="shopping-cart">
-<div class="txt-heading">Shopping Cart</div>
 
-<a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
-<?php
-if(isset($_SESSION["cart_item"])){
-    $total_quantity = 0;
-    $total_price = 0;
-?>	
-<table class="tbl-cart" cellpadding="10" cellspacing="1">
-<tbody>
-<tr>
-<th style="text-align:left;">Name</th>
-<th style="text-align:left;">Code</th>
-<th style="text-align:right;" width="5%">Quantity</th>
-<th style="text-align:right;" width="10%">Unit Price</th>
-<th style="text-align:right;" width="10%">Price</th>
-<th style="text-align:center;" width="5%">Remove</th>
-</tr>	
-<?php		
-    foreach ($_SESSION["cart_item"] as $item){
-        $item_price = $item["quantity"]*$item["price"];
-		?>
-				<tr>
-				<td><img src="<?php echo $item["image"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
-				<td><?php echo $item["code"]; ?></td>
-				<td style="text-align:right;"><?php echo $item["quantity"]; ?></td>
-				<td  style="text-align:right;"><?php echo "$ ".$item["price"]; ?></td>
-				<td  style="text-align:right;"><?php echo "$ ". number_format($item_price,2); ?></td>
-				<td style="text-align:center;"><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item" /></a></td>
-				</tr>
-				<?php
-				$total_quantity += $item["quantity"];
-				$total_price += ($item["price"]*$item["quantity"]);
-		}
-		?>
+function getAllProducts() {
+    $serverhost = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "shop";
 
-<tr>
-<td colspan="2" align="right">Total:</td>
-<td align="right"><?php echo $total_quantity; ?></td>
-<td align="right" colspan="2"><strong><?php echo "$ ".number_format($total_price, 2); ?></strong></td>
-<td></td>
-</tr>
-</tbody>
-</table>		
-  <?php
-} else {
-?>
-<div class="no-records">Your Cart is Empty</div>
-<?php 
+    // Create connection
+    $connect = new mysqli($serverhost, $username, $password, $dbname);
+
+    // Begin prepare statement
+    $sql = "SELECT * FROM products";
+    $result = mysqli_query($connect, $sql);
+
+    return mysqli_fetch_all ($result, MYSQLI_ASSOC);
 }
+
+$results = getAllProducts();
 ?>
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" , href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" , integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" , crossorigin="anonymous">
+    <link rel="stylesheet" href="src/styles.css">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <title>Apex SkateShop</title>
+</head>
+
+
+<body>
+<body id="wallpaperLogin"> <?php include __DIR__ . "/bars/header.php"; ?>
+    <main>
+        <!-- Hero -->
+        <div class="jumbotron mt-5 p-3 p-md-5 text-dark bg-light">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4">Your shopping <i>Cart</i></h1>
+                <p class="lead my-3">You Have no Skate Equipment here</p>
+            </div>
+        </div>
+        <!-- Hero END -->
+
+    <!-- Cart List  -->
+    <div class="table-responsive m-5">
+
+<table class="table table-hover table-responsive-md">
+<?php if(!empty($_SESSION['Cart'])) : ?>
+    <thead>
+        <tr>
+            <th>Game Name</th>
+            <th>Platform</th>
+            <th>Rating</th>
+            <th>Genre</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <?php endif ?>
+    <tbody class="table-group-divider">
+        <?php $cart_total = 0; ?>
+        <?php if (!empty($_SESSION['Cart'])) : ?>
+            <?php foreach ($_SESSION['Cart'] as $id) : ?>
+                <?php $item = new Product($id); ?>
+                <?php $cart_total = $cart_total + $item->getPrice(); ?>
+                <tr>
+                    <td><?= $item->getName() ?></td>
+                    </td>
+                    <td><?= $item->getRating() ?></td>
+                    <td>R <?= $item->getPrice() ?></td>
+                    <td>
+                        <form action="./processing/remove-cart-item.php" method="post">
+                            <input type="hidden" name="productId" value="<?= $item->getId() ?>">
+                            <button type="submit" name="Submit" class="btn btn-light">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        <?php else : ?>
+        <?php endif ?>
+    </tbody>
+    <?php if(!empty($_SESSION['Cart'])) : ?>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Total</th>
+                <th>R <?= $cart_total ?></th>
+                <th><form action="./processing/cart-pay.php" method="post">
+                        <button type="submit" name="Submit" class="btn btn-light">
+                            <i>Pay</i>
+                        </button>
+                    </form>
+                </th>
+            </tr>
+        </thead>
+    <?php endif ?>
+</table>
+<?php if(!empty($_SESSION['Cart'])) : ?>
+    <form action="./processing/clear-cart.php" method="post">
+        <button type="submit" name="Submit" class="btn btn-primary">
+            Clear Cart
+        </button>
+    </form>
+<?php endif ?>
 </div>
+</main>
 
-<div id="product-grid">
-	<div class="txt-heading">Products</div>
-	<?php
-	$product_array = $db_handle->runQuery("SELECT * FROM tblproduct ORDER BY id ASC");
-	if (!empty($product_array)) { 
-		foreach($product_array as $key=>$value){
-	?>
-		<div class="product-item">
-			<form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>">
-			<div class="product-image"><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
-			<div class="product-tile-footer">
-			<div class="product-title"><?php echo $product_array[$key]["name"]; ?></div>
-			<div class="product-price"><?php echo "$".$product_array[$key]["price"]; ?></div>
-			<div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" /></div>
-			</div>
-			</form>
-		</div>
-	<?php
-		}
-	}
-	?>
-</div>
-</BODY>
-</HTML>
+    <?php include __DIR__ . "/bars/footer.php"; ?>
+</body>
+
+</html>

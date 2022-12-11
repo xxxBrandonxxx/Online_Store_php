@@ -42,12 +42,13 @@ $result = getProduct($itemId);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" , href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" , integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" , crossorigin="anonymous">
     <!-- Favicon-->
+    <link rel="stylesheet" href="src/styles.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <title>Apex SkateShop</title>
 
 
-<body>
+<body id="apex">
 
     <?php include __DIR__ . "/bars/header.php"; ?>
 
@@ -74,7 +75,7 @@ $result = getProduct($itemId);
                             <div class="d-flex justify-content-between total font-weight-bold mt-4">
                                 <span>Rating </span><span><?php echo $result['rating'] ?>/10</span>
                             </div>
-                            <button class="btn btn-outline-dark" type="button" href="#">product.php?itemId=<?php echo $item['id'] ?>">
+                            <button class="btn btn-outline-dark" type="button" href="#">
                                 <i class="bi-cart-fill me-1"></i>
                                 add to Cart
                                 <span class="badge bg-dark text-white ms-1 rounded-pill"></span>

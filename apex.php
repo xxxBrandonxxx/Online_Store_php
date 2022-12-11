@@ -1,25 +1,21 @@
 <?php
 
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+include __DIR__ . "/config/config.php";
+session_start();
 
-    include __DIR__ . "/config/config.php";
-    session_start(); 
-
-    if (!isset($_SESSION['username'])) {
-        $_SESSION['msg'] = "You must log in first";
-        header('location: login.php');
-    }
-    if (isset($_GET['logout'])) {
-        session_destroy();
-        unset($_SESSION['username']);
-        header("location: login.php");
-    }
+if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: login.php');
+}
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['username']);
+    header("location: login.php");
+}
 ?>
 
- 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +29,7 @@
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
-    <link rel="stylesheet" href="src/styless.css">
+    <link rel="stylesheet" href="src/styles.css">
     <title>Apex SkateShop</title>
 
 
@@ -43,63 +39,60 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-            <?php include __DIR__ . "/bars/header.php"; ?>
+                <?php include __DIR__ . "/bars/header.php"; ?>
 
 
-	<h1>Apex</h1>
-<div class="content">
-  	<!-- notification message -->
-  	<?php if (isset($_SESSION['success'])) : ?>
-      <div class="error success" >
-      	<h3>
-          <?php 
-          	echo $_SESSION['success']; 
-          	unset($_SESSION['success']);
-          ?>
-      	</h3>
-      </div>
-  	<?php endif ?>
+                <h1>Apex</h1>
+                <div class="content">
+                    
+                    <!-- notification message -->
+                    <?php if (isset($_SESSION['success'])) : ?>
+                        <div class="error success">
+                            <h3>
+                                <?php
+                                echo $_SESSION['success'];
+                                unset($_SESSION['success']);
+                                ?>
+                            </h3>
+                        </div>
+                    <?php endif ?>
 
-    <!-- logged in user information -->
-    <?php  if (isset($_SESSION['username'])) : ?>
-    	<h3>Welcome <strong><?php echo $_SESSION['username']; ?></strong></h3>
-    	<h3> <a href="index.php?logout='1'" style="color: red;">logout</a> </h3>
-    <?php endif ?>
-</div>
-                
+                    <!-- logged in user information -->
+                    <?php if (isset($_SESSION['username'])) : ?>
+                        <h3>Welcome <strong><?php echo $_SESSION['username']; ?>   Your now part of the family</strong></h3>
+                    <?php endif ?>
+                </div>
+
                 <h1 class="display-4 fw-bolder">Skate in style</h1>
                 <p class="lead fw-normal text-white-50 mb-0">Shop the board of your dreams</p>
             </div>
         </div>
     </header>
     <!-- Section-->
-    <section class="py-5">
+    <section class="py-5" id="apex">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <?php foreach ($results as $item): ?>
-           
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="<?php echo $item['image'] ?>" height="250px" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder"><?php echo $item['name'] ?></h5>
-                                <!-- Product price-->
-                                R <?php echo $item['price'] ?>
+                <?php foreach ($results as $item) : ?>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="<?php echo $item['image'] ?>" height="250px" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder"><?php echo $item['name'] ?></h5>
+                                    <!-- Product price-->
+                                    R <?php echo $item['price'] ?>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.php?itemId=<?php echo $item['id'] ?>">More Details</a></div>
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.php?itemId=<?php echo $item['id'] ?>">More Details</a></div>
-                        </div>
                     </div>
-                </div>
-
-            <?php endforeach ?>
-                
+                <?php endforeach ?>
             </div>
         </div>
     </section>
